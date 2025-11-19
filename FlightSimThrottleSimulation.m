@@ -2,7 +2,7 @@ dt = 0.1;
 T = 60;
 time = 0:dt:T;
 
-throttleLevels = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0];
+throttleLevels = [0.0,0.1,0.2 0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0];
 listedThrust = 10;
 speeds = zeros(length(throttleLevels),length(time));
 speedsClimb = zeros(length(throttleLevels),length(time));
@@ -27,7 +27,7 @@ for t = 1:length(throttleLevels)
         height = height + 100;
         drag = applySpeedDrag(speed(i-1));
         accel = thrust - drag;
-        accelClimb = thrust - applyClimbDrag(height);
+        accelClimb = thrust - (applyClimbDrag(height) + applySpeedDrag(speed(i-1)));
         speed(i) = speed(i-1) + accel*dt;
         speedClimb(i) = speedClimb(i-1) + accelClimb*dt;
     end
